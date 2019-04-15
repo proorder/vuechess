@@ -24,16 +24,18 @@
                 <img :src="path(trainers[0].image[0].image)" alt="" />
               </div>
               <div
-                  class="col-4"
-                  v-on:click="chooseTrainer($event, trainers[1].user.id)"
-                  v-on:mouseover="trainer_header = trainers[1].user.fullName"
-                  v-on:mouseout="trainer_header = 'Наши тренеры'"
+                class="col-4"
+                v-on:click="chooseTrainer($event, trainers[1].user.id)"
+                v-on:mouseover="trainer_header = trainers[1].user.fullName"
+                v-on:mouseout="trainer_header = 'Наши тренеры'"
               >
                 <img :src="path(trainers[1].image[0].image)" alt="" />
               </div>
-              <div class="col-4" v-on:click="chooseTrainer($event, trainers[2].user.id)"
-                   v-on:mouseover="trainer_header = trainers[2].user.fullName"
-                   v-on:mouseout="trainer_header = 'Наши тренеры'"
+              <div
+                class="col-4"
+                v-on:click="chooseTrainer($event, trainers[2].user.id)"
+                v-on:mouseover="trainer_header = trainers[2].user.fullName"
+                v-on:mouseout="trainer_header = 'Наши тренеры'"
               >
                 <img :src="path(trainers[2].image[0].image)" alt="" />
               </div>
@@ -47,7 +49,7 @@
           <div
             class="col-12 col-md-6 order-1 order-md-2 section__trainers--violetta px-sm-5 px-md-0"
           >
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-start">
               <div class="section__trainers--violetta__desc">
                 <h5>Виолетта Шнайдер</h5>
                 <p>Основатель школы</p>
@@ -137,7 +139,7 @@
     <div class="section__price py-5">
       <div class="container">
         <h3 class="text-white font-weight-bold">Прайс-лист</h3>
-        <div class="row mt-5">
+        <div class="row mt-5 align-items-stretch">
           <div class="col-12 col-lg-4">
             <div class="block__price">
               <h5>
@@ -182,7 +184,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-lg-4">
+          <div class="col-12 col-lg-4 mt-3 mt-lg-0">
             <div class="block__price">
               <h5>
                 Дистанционные занятия <br class="d-none" />
@@ -226,7 +228,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-lg-4">
+          <div class="col-12 col-lg-4 mt-3 mt-lg-0">
             <div class="block__price">
               <h5>
                 Групповые занятия <br class="d-none" />
@@ -317,6 +319,12 @@ export default {
         }
         errorProcessing(err);
       });
+  },
+  mounted() {
+    document.querySelector(".pre-footer").style.height = 0;
+  },
+  beforeDestroy() {
+    document.querySelector(".pre-footer").style.height = "20px";
   },
   methods: {
     path(image) {
@@ -506,7 +514,7 @@ export default {
       }
     }
     & > .section__trainers--trainers__who {
-      font-size: 1.5em;
+      font-size: 1.3em;
       text-align: center;
       /*color: $brown-color;*/
       & > hr {
@@ -516,7 +524,7 @@ export default {
     }
     @media screen and (min-width: 768px) {
       .section__trainers--trainers__who {
-        font-size: 0.8em;
+        font-size: 1em;
       }
     }
     @media screen and (min-width: 820px) {
@@ -565,13 +573,24 @@ export default {
     @media screen and (min-width: 768px) {
       .section__trainers--violetta__desc {
         position: static;
+        margin-left: 20px;
       }
     }
-    @media screen and (min-width: 1156px) {
+    @media screen and (min-width: 1035px) {
       .section__trainers--violetta__desc {
         position: absolute;
       }
     }
+  }
+}
+@media screen and (max-width: 500px) {
+  .section__trainers--violetta {
+    font-size: 14px !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .section__trainers--violetta {
+    font-size: 18px;
   }
 }
 

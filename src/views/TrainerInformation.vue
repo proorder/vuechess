@@ -127,6 +127,12 @@
           <div class="first-hand"></div>
           <div class="second-hand"></div>
         </div>
+        <div class="progress d-none">
+          <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
+        </div>
+      </div>
+      <div class="progress mt-3 d-none">
+        <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
       </div>
       <div class="text-center">
         <button type="button" class="save-button mt-3" v-on:click="send">
@@ -185,14 +191,25 @@ export default {
       for (let key in info) {
         formData.append(key, info[key]);
       }
-      formData.append("image", this.$refs.imageField.files[0]);
+      if (this.$refs.imageField.files[0] !== undefined) {
+        formData.append("image", this.$refs.imageField.files[0]);
+      }
+      document.querySelector(".progress").classList.remove("d-none");
       axios
         .post(TRAINERS, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
+          },
+          onUploadProgress: pg => {
+            if (this.$refs.imageField.files[0] !== undefined) {
+              document.querySelector(".hands").style.display = "none";
+            }
+            document.querySelector(".progress-bar").style.width =
+              pg.loaded / (pg.total / 100) + "%";
           }
         })
         .then(() => {
+          this.on_progress = false;
           this.$router.push({ name: "Профиль" });
         })
         .catch(err => {
@@ -281,6 +298,19 @@ label {
         right: 0px;
         bottom: 0px;
       }
+    }
+  }
+  & > .progress {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 100% !important;
+    background: none !important;
+    & > .progress-bar {
+      height: 100% !important;
+      opacity: 0.7;
     }
   }
 }

@@ -1,12 +1,14 @@
 <template>
   <div class="container py-5">
     <div class="row">
-      <div class="col-3 trainer-profile">
+      <div
+        class="col-12 col-sm-6 col-md-4 col-lg-3 order-1 order-sm-0 trainer-profile"
+      >
         <img
           v-if="trainer.trainers.image[0] !== undefined"
           :src="path(trainer.trainers.image[0].image)"
           :class="{ 'opacity-0': opacity }"
-          class="trainer-avatar container-fluid p-0"
+          class="trainer-avatar container-fluid p-0 d-none d-sm-block"
         />
         <svg
           v-else
@@ -55,13 +57,30 @@
           </div>
         </div>
       </div>
-      <div class="col-9 text-left base-block">
+      <div
+        class="col-12 col-sm-6 col-md-8 col-lg-9 order-0 order-sm-1 text-left base-block"
+      >
         <h4
           class="trainer-name font-weight-bold"
           :class="{ 'opacity-0': opacity }"
         >
           {{ trainer.fullName }}
         </h4>
+        <img
+          v-if="trainer.trainers.image[0] !== undefined"
+          :src="path(trainer.trainers.image[0].image)"
+          :class="{ 'opacity-0': opacity }"
+          class="trainer-avatar container-fluid p-0 d-sm-none mb-3"
+        />
+        <svg
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 85 100"
+            :class="{ 'opacity-0': opacity }"
+            class="trainer-avatar container-fluid p-0 d-sm-none"
+        >
+          <rect fill="#6300BF" class="cls-1" width="85" height="100" />
+        </svg>
         <h6 class="font-weight-bold">Тренер о себе:</h6>
         <p class="font-weight-light">{{ trainer.trainers.about }}</p>
         <h6 class="font-weight-bold">Достижения:</h6>
@@ -135,9 +154,11 @@ export default {
       const { x, y } = document
         .querySelector(".trainer-name")
         .getBoundingClientRect();
-      const { x: x1, y: y1 } = document
-        .querySelector(".trainer-avatar")
-        .getBoundingClientRect();
+      const avatarSource =
+        window.innerWidth < 576
+          ? document.querySelectorAll(".trainer-avatar")[1]
+          : document.querySelector(".trainer-avatar");
+      const { x: x1, y: y1 } = avatarSource.getBoundingClientRect();
       anime({
         targets: this.$store.getters.trainerName,
         left: x + "px",
@@ -148,7 +169,7 @@ export default {
         targets: this.$store.getters.trainerAvatar,
         left: x1 + "px",
         top: y1 + window.scrollY + "px",
-        width: document.querySelector(".trainer-avatar").clientWidth + "px",
+        width: avatarSource.clientWidth + "px",
         borderRadius: "15px"
       });
     } else {
@@ -177,10 +198,8 @@ export default {
   opacity: 0;
 }
 
-.trainer-profile {
-  & > .trainer-avatar {
-    border-radius: 15px;
-  }
+.trainer-avatar {
+  border-radius: 15px;
 }
 
 .button {

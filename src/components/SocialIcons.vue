@@ -1,5 +1,5 @@
 <template>
-  <div class="social-icons d-none d-md-flex col-auto">
+  <div class="social-icons col-auto">
     <div class="vk">
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,7 @@
 <template>
   <div class="registration-page container py-5">
     <div class="row">
-      <div class="col-6 text-left">
+      <div class="col-12 col-md-6 text-left">
         <h4 class="font-weight-bold text-center">Вступай в наши ряды</h4>
         <label class="mt-3">
           Ваш Email-адрес:
@@ -146,7 +146,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6 position-relative">
+      <div class="col-12 col-md-6 position-relative">
         <cosmos></cosmos>
       </div>
     </div>

@@ -16,7 +16,7 @@
                 />
               </svg>
             </span>
-            <social-icons></social-icons>
+            <social-icons class="d-none d-md-flex "></social-icons>
             <div
               v-if="full_name !== null"
               class="col-aut ml-auto d-flex align-items-center profile-info"
@@ -167,6 +167,7 @@
     </header>
     <div
       class="toast"
+      v-if="toast_message !== ''"
       :class="{ show: toast_message !== '' }"
       style="position: fixed; top: 10px; right: 10px; z-index: 2;"
     >
@@ -238,6 +239,7 @@
       </ul>
     </nav>
     <router-view></router-view>
+    <div class="pre-footer"></div>
     <div class="footer py-3 py-md-5">
       <div class="container">
         <div class="row">
@@ -413,7 +415,7 @@ export default {
           opacity: 0
         })
         .add({
-          targets: ".button",
+          targets: document.querySelector(".button"),
           opacity: 1
         });
       setTimeout(() => {
@@ -433,19 +435,28 @@ export default {
         }
 
         document.querySelector(".text-after-plane").style.display = "flex";
-        anime
-          .timeline({
-            easing: "linear",
-            duration: 300
-          })
-          .add({
-            targets: ".button",
-            opacity: 0
-          })
-          .add({
+        const errorTimeline = anime.timeline({
+          easing: "linear",
+          duration: 300
+        });
+        errorTimeline.add({
+          targets: document.querySelector(".button"),
+          opacity: 0
+        });
+        if (window.innerWidth > 575 && window.innerWidth < 992) {
+          setTimeout(() => {
+            document.querySelector(".button").innerHTML = "Заполните поля";
+          }, 300);
+          errorTimeline.add({
+            targets: document.querySelector(".button"),
+            opacity: 1
+          });
+        } else {
+          errorTimeline.add({
             targets: ".text-after-plane",
             opacity: 1
           });
+        }
 
         return;
       }
@@ -887,15 +898,14 @@ header > .parallax__content {
   background-color: $violet;
 }
 
+.pre-footer {
+  height: 20px;
+  background: url('data:image/svg+xml; utf8, <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 57"><path fill="rgb(20,0,63)" d="M2400,3c-151,0-651,30-820,30S986,0,612,0C320.56,0,151.74,37.92,0,45V57H2400Z"/></svg>');
+}
 .footer {
   background-color: $violet-dark;
   font-weight: bold;
   color: #fff;
-  & .social_icons {
-    & > div {
-      border-radius: 100%;
-    }
-  }
   & .footer__tel {
     font-weight: bold;
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="container py-5">
     <div class="row">
-      <div class="col-4" v-if="trainers.length < 1">
+      <div class="col-12 col-md-6 col-lg-4" v-if="trainers.length < 1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 85 100"
@@ -10,7 +10,7 @@
           <rect fill="#6300BF" class="cls-1" width="85" height="100" />
         </svg>
       </div>
-      <div class="col-4" v-if="trainers.length < 1">
+      <div class="col-12 col-md-6 col-lg-4" v-if="trainers.length < 1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 85 100"
@@ -19,7 +19,7 @@
           <rect fill="#6300BF" class="cls-1" width="85" height="100" />
         </svg>
       </div>
-      <div class="col-4" v-if="trainers.length < 1">
+      <div class="col-12 col-md-6 col-lg-4" v-if="trainers.length < 1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 85 100"
@@ -28,9 +28,17 @@
           <rect fill="#6300BF" class="cls-1" width="85" height="100" />
         </svg>
       </div>
-      <div v-for="(trainer, key) in trainers" :key="key" class="col-4">
+      <div
+        v-for="(trainer, key) in trainers"
+        :key="key"
+        class="col-12 col-sm-6 col-lg-4 mt-3"
+      >
         <div class="trainer_card">
-          <img :src="path(trainer.image[0].image)" class="container-fluid" alt="" />
+          <img
+            :src="path(trainer.image[0].image)"
+            class="container-fluid"
+            alt=""
+          />
           <div class="trainer_block">
             <div class="trainer_info p-2">
               <h5>{{ trainer.user.fullName }}</h5>
@@ -60,7 +68,8 @@ export default {
   }),
   created() {
     axios
-      .post(MODEL, {query: `
+      .post(MODEL, {
+        query: `
         query {
           allTrainers {
             about
@@ -73,7 +82,8 @@ export default {
             }
           }
         }
-      `})
+      `
+      })
       .then(res => {
         this.trainers = res.data.data.allTrainers;
       })
@@ -157,7 +167,7 @@ export default {
   }
 }
 
-.container > .row > .col-4 {
+.container > .row > * {
   &:nth-child(odd) .trainer_info:before {
     background-image: url("../assets/img/left_top_wave.svg");
   }

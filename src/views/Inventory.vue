@@ -15,7 +15,7 @@
       <div
         :key="key"
         v-for="(product, key) in products"
-        class="col-4 p-2"
+        class="col-12 col-sm-6 col-md-4 p-2"
         :style="{ backgroundColor: mathColor() }"
       >
         <div class="inventory-page_item">
@@ -54,7 +54,7 @@ export default {
   }),
   created() {
     axios
-      .get(PRODUCTS, { params: { status: "attributes" } })
+      .get(PRODUCTS, { params: { product_type: "attribute" } })
       .then(res => {
         this.products = res.data;
       })
