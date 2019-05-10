@@ -1,8 +1,8 @@
 <template>
   <div class="container py-5">
     <h5 v-if="$route.query.blank !== undefined" class="font-weight-bold mb-4">
-      Ваша анкета появится в списке тренеров сразу после того, как вы заполните
-      информацию о себе.
+      Ваша анкета появится в списке тренеров сразу после того, как будет
+      проверена модератором.
     </h5>
     <div class="text-left">
       <label>
@@ -128,11 +128,15 @@
           <div class="second-hand"></div>
         </div>
         <div class="progress d-none">
-          <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated"
+          ></div>
         </div>
       </div>
       <div class="progress mt-3 d-none">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+        ></div>
       </div>
       <div class="text-center">
         <button type="button" class="save-button mt-3" v-on:click="send">
@@ -151,6 +155,9 @@ import errorProcessing from "../utils/errorProcessing";
 
 export default {
   name: "TrainerInformation",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Изменение персональных данных"
+  },
   data: () => ({
     trainer: {
       sports_category: "",

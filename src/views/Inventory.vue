@@ -2,11 +2,12 @@
   <div class="container py-5">
     <div class="row mb-5">
       <div class="page_description col-12 p-5">
-        <h3 class="display-5">Описание страницы магазина</h3>
+        <h3 class="display-5">
+          На данной странице вы сможете приобрести шахматный инвентарь
+        </h3>
         <hr class="my-4" />
         <p class="lead">
-          Как и описание со всех остальных страниц в подобных блоках, попадет в
-          гугл
+          Шахматные доски, часы, а также многое другое. Следите за поступлениями
         </p>
       </div>
     </div>
@@ -49,6 +50,9 @@ import { PRODUCTS } from "../queries";
 
 export default {
   name: "inventory",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Купить шахматный инвентарь в России"
+  },
   data: () => ({
     products: []
   }),

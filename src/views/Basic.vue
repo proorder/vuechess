@@ -486,9 +486,6 @@ export default {
       this.plane();
     }
   },
-  metaInfo: {
-    title: process.env.VUE_APP_TITLE + " | Обучение шахматам по всей России"
-  },
   components: {
     SocialIcons
   }
@@ -754,8 +751,8 @@ header > .parallax__content {
     display: none;
     list-style-type: none;
     margin: 0px;
-    padding: 15px 0px 15px 20px;
-    border-radius: 0px 0px 0px 15px;
+    padding: 0px 0px 5px 0px;
+    border-radius: 5px;
     color: dodgerblue;
     z-index: +1;
     & > li > a {
@@ -763,10 +760,9 @@ header > .parallax__content {
       color: #fff;
       background-color: $violet;
       cursor: pointer;
-      margin: 2px 0px;
-      padding: 6px 15px;
-      padding-right: 30px;
-      border-radius: 0px 0px 0px 15px;
+      margin: 5px 0px 0px 0px;
+      padding: 6px 40px;
+      border-radius: 0px;
       &:hover {
         background-color: transparentize($violet, 0.3);
       }

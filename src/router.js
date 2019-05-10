@@ -52,7 +52,7 @@ export default new Router({
           path: "/antique-books",
           name: "Книги",
           component: function() {
-            return import(/* webpackChunkName: "AntiqueBooks" */ "./views/AntiqueBooks.vue");
+            return import(/* webpackChunkName: "antiqueBooks" */ "./views/AntiqueBooks.vue");
           }
         },
         {
@@ -60,6 +60,13 @@ export default new Router({
           name: "Тренер",
           component: function() {
             return import(/* webpackChunkName: "trainer" */ "./views/Trainer.vue");
+          }
+        },
+        {
+          path: "/violetta",
+          name: "Виолетта",
+          component: function() {
+            return import(/* webpackChunkName: "violetta" */ "./views/Violetta.vue");
           }
         },
         {
@@ -80,7 +87,7 @@ export default new Router({
           path: "/trainer-information",
           name: "Информация о тренере",
           component: function() {
-            return import(/* webpackChunkName: "TrainerInformation" */ "./views/TrainerInformation.vue");
+            return import(/* webpackChunkName: "trainerInformation" */ "./views/TrainerInformation.vue");
           }
         }
       ]

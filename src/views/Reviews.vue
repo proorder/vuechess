@@ -12,6 +12,9 @@
 
 <script>
 export default {
-  name: "reviews"
+  name: "reviews",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Отзывы"
+  }
 };
 </script>

@@ -19,7 +19,34 @@
         >
           <rect fill="#6300BF" class="cls-1" width="85" height="100" />
         </svg>
-        <div class="button mt-3">Оставить заявку</div>
+        <div class="btn-request-visible mt-3">
+          <div v-on:click="requestVisible = !requestVisible" class="button">
+            Оставить заявку
+          </div>
+          <div class="request-popup" v-if="requestVisible && !requestSent">
+            <input
+              type="text"
+              class="form-control mt-1"
+              placeholder="Ваше Имя"
+              v-model="name"
+            />
+            <input
+              type="text"
+              class="form-control mt-1"
+              placeholder="Контакты для связи"
+              v-model="contact"
+            />
+            <input
+              type="text"
+              class="form-control mt-1"
+              placeholder="Промокод"
+              v-model="promo"
+            />
+            <button type="button" class="mt-1" v-on:click="request">
+              Отправить
+            </button>
+          </div>
+        </div>
         <div
           class="d-flex justify-content-between align-items-baseline text-left mt-5"
         >
@@ -73,11 +100,11 @@
           class="trainer-avatar container-fluid p-0 d-sm-none mb-3"
         />
         <svg
-            v-else
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 85 100"
-            :class="{ 'opacity-0': opacity }"
-            class="trainer-avatar container-fluid p-0 d-sm-none"
+          v-else
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 85 100"
+          :class="{ 'opacity-0': opacity }"
+          class="trainer-avatar container-fluid p-0 d-sm-none"
         >
           <rect fill="#6300BF" class="cls-1" width="85" height="100" />
         </svg>
@@ -93,12 +120,20 @@
 <script>
 import axios from "axios";
 import anime from "animejs";
-import { MODEL } from "../queries";
+import { MODEL, REQUEST } from "../queries";
 import errorProcessing from "../utils/errorProcessing";
 
 export default {
   name: "trainer",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Информация о тренере"
+  },
   data: () => ({
+    requestVisible: false,
+    requestSent: false,
+    contact: "",
+    name: "",
+    promo: "",
     trainer: {
       fullName: "[][][][][][][]",
       trainers: {
@@ -179,6 +214,28 @@ export default {
   methods: {
     path(path) {
       return process.env.VUE_APP_HOST + path;
+    },
+    request() {
+      axios
+        .post(REQUEST, {
+          contact: this.contact,
+          name: this.name,
+          promo: this.promo
+        })
+        .then(() => {
+          this.requestVisible = false;
+          this.requestSent = true;
+          document.querySelector(".btn-request-visible > .button").innerHTML =
+            "Заявка принята!";
+        })
+        .catch(err => {
+          if (err.response === undefined) {
+            this.$store.commit("connectionRefused", {
+              refused: this.request
+            });
+          }
+          errorProcessing(err);
+        });
     }
   },
   beforeDestroy() {
@@ -200,6 +257,28 @@ export default {
 
 .trainer-avatar {
   border-radius: 15px;
+}
+
+.btn-request-visible {
+  position: relative;
+}
+
+.request-popup {
+  position: absolute;
+  top: -204px;
+  left: 0px;
+  right: 0px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #fff;
+  button {
+    background-color: $violet;
+    color: #fff;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    padding: 7px 15px;
+  }
 }
 
 .button {

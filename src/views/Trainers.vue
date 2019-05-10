@@ -63,6 +63,9 @@ import errorProcessing from "../utils/errorProcessing";
 
 export default {
   name: "trainers",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Анкеты тренеров"
+  },
   data: () => ({
     trainers: []
   }),

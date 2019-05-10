@@ -12,6 +12,9 @@
 
 <script>
 export default {
-  name: "news"
+  name: "news",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Актуальные новости портала"
+  }
 };
 </script>

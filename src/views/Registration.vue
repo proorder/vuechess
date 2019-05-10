@@ -162,6 +162,9 @@ import { REGISTRATION } from "../queries";
 
 export default {
   name: "registration",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Обучение шахматам по всей России"
+  },
   data: () => ({
     email: "",
     full_name: "",

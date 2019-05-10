@@ -16,6 +16,9 @@
 
 <script>
 export default {
-  name: "profile"
+  name: "profile",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Персональный профиль пользователя"
+  }
 };
 </script>

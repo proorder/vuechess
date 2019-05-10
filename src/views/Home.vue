@@ -57,7 +57,9 @@
             </div>
             <img src="../assets/img/violetta.png" alt="" />
             <p>Тренер более чем с 5-и летним стажем</p>
-            <a href="#">Узнать подробнее</a>
+            <router-link :to="{ name: 'Виолетта' }"
+              >Узнать подробнее</router-link
+            >
           </div>
         </div>
         <div class="row my-5 block__about_us">
@@ -286,6 +288,9 @@ import { MODEL, REQUEST } from "../queries";
 
 export default {
   name: "home",
+  metaInfo: {
+    title: process.env.VUE_APP_TITLE + " | Обучение шахматам по всей России"
+  },
   data: () => ({
     trainer_header: "Наши тренеры",
     trainers: [],
@@ -613,7 +618,7 @@ export default {
         width: 100%;
         top: 0;
         left: 0;
-        fill: transparentize($violet, 0.3);
+        fill: transparentize($brown-color, 0.3);
       }
     }
     & > h5 {
