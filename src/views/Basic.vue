@@ -16,7 +16,10 @@
                 />
               </svg>
             </span>
-            <social-icons class="d-none d-md-flex "></social-icons>
+            <div class="d-flex align-items-center">
+              <social-icons class="d-none d-md-flex "></social-icons>
+              <h3 class="font-weight-bold m-0 p-0">Шах и Мат</h3>
+            </div>
             <div
               v-if="full_name !== null"
               class="col-aut ml-auto d-flex align-items-center profile-info"
@@ -87,7 +90,7 @@
               class="col-12 col-lg-7 d-flex align-items-center justify-content-center"
             >
               <h1 class="font-weight-bold">
-                Обучение шахматам<br />по всей России
+                Обучение шахматам<br />по всей России<br />- шахматная школа<br />"Шах и Мат"
               </h1>
             </div>
             <div class="mt-5 mt-md-0 col-12 col-lg-5 d-flex align-items-center">
