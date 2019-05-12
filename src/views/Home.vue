@@ -56,7 +56,7 @@
               </div>
             </div>
             <img src="../assets/img/violetta.png" alt="" />
-            <p>Тренер более чем с 5-и летним стажем</p>
+            <p>Тренер со стажем более 4-х лет</p>
             <router-link :to="{ name: 'Виолетта' }"
               >Узнать подробнее</router-link
             >
@@ -82,7 +82,7 @@
               </div>
             </div>
             <div class="block__about_us--block block_2 mt-4 py-3 px-5">
-              <h5>Личные контакт в вашем городе</h5>
+              <h5>Личный контакт в вашем городе</h5>
               <hr />
               <p>Индивидуальные занятия в удобом для вас месте</p>
               <div class="scaling-svg-container">
@@ -174,6 +174,12 @@
                   placeholder="Контакты для связи"
                   v-model="contact"
                 />
+                <input
+                  type="text"
+                  class="form-control mt-1"
+                  placeholder="Как к вам обратиться"
+                  v-model="name"
+                />
                 <div
                   class="button mt-4"
                   v-on:click="request($event, 'Индивидуальные занятия')"
@@ -193,7 +199,7 @@
                 по всему миру
               </h5>
               <div class="text-center mt-4">
-                <h5 class="price">От 600 рублей</h5>
+                <h5 class="price">От 800 рублей</h5>
               </div>
               <ul class="mt-4">
                 <li>В любой точке земли.</li>
@@ -218,6 +224,12 @@
                   placeholder="Контакты для связи"
                   v-model="contact"
                 />
+                <input
+                  type="text"
+                  class="form-control mt-1"
+                  placeholder="Как к вам обратиться"
+                  v-model="name"
+                />
                 <div
                   class="button mt-4"
                   v-on:click="request($event, 'Дистанционные занятия')"
@@ -237,7 +249,7 @@
                 для детей в Челябинске
               </h5>
               <div class="text-center mt-4">
-                <h5 class="price">От 250 рублей</h5>
+                <h5 class="price">От 300 рублей</h5>
               </div>
               <ul class="mt-4">
                 <li>Дружеская атмосфера.</li>
@@ -261,6 +273,12 @@
                   class="form-control"
                   placeholder="Контакты для связи"
                   v-model="contact"
+                />
+                <input
+                  type="text"
+                  class="form-control mt-1"
+                  placeholder="Как к вам обратиться"
+                  v-model="name"
                 />
                 <div
                   class="button mt-4"
@@ -294,7 +312,8 @@ export default {
   data: () => ({
     trainer_header: "Наши тренеры",
     trainers: [],
-    contact: ""
+    contact: "",
+    name: ""
   }),
   created() {
     axios
@@ -399,14 +418,16 @@ export default {
           duration: 500
         });
       }, 500);
-      axios.post(REQUEST, { rate_type, contact: this.contact }).catch(err => {
-        if (err.response === undefined) {
-          this.$store.commit("connectionRefused", {
-            refused: this.request
-          });
-        }
-        errorProcessing(err);
-      });
+      axios
+        .post(REQUEST, { rate_type, contact: this.contact, name: this.name })
+        .catch(err => {
+          if (err.response === undefined) {
+            this.$store.commit("connectionRefused", {
+              refused: this.request
+            });
+          }
+          errorProcessing(err);
+        });
     }
   }
 };

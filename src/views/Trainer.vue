@@ -220,7 +220,8 @@ export default {
         .post(REQUEST, {
           contact: this.contact,
           name: this.name,
-          promo: this.promo
+          promo: this.promo,
+          user_id: this.$route.query.user_id || 1
         })
         .then(() => {
           this.requestVisible = false;

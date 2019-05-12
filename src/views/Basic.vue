@@ -4,7 +4,7 @@
       <div class="parallax__content">
         <div class="container">
           <div class="row head">
-            <span class="toggleNav d-block d-sm-none">
+            <span class="toggleNav d-block d-sm-none" v-on:click="openMobileMenu">
               <svg
                 class="svg-hamburger"
                 viewBox="0 0 1536 1280"
@@ -16,16 +16,17 @@
                 />
               </svg>
             </span>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center ml-5 ml-sm-0">
               <social-icons class="d-none d-md-flex "></social-icons>
-              <h3 class="font-weight-bold m-0 p-0">Шах и Мат</h3>
+              <router-link to="/" class="school-name">Шах и Мат</router-link>
             </div>
             <div
               v-if="full_name !== null"
               class="col-aut ml-auto d-flex align-items-center profile-info"
             >
-              {{ full_name }}
-              <ul class="profile-info__menu">
+              <span v-on:click="auth_popup = true">{{ full_name }}</span>
+              <ul class="profile-info__menu" v-if="auth_popup">
+                <div class="substrate" v-on:click="auth_popup = false"></div>
                 <li>
                   <router-link :to="{ name: 'Профиль' }">Профиль</router-link>
                 </li>
@@ -90,7 +91,10 @@
               class="col-12 col-lg-7 d-flex align-items-center justify-content-center"
             >
               <h1 class="font-weight-bold">
-                Обучение шахматам<br />по всей России<br />- шахматная школа<br />"Шах и Мат"
+                Обучение шахматам<br />по всей России<br /><span
+                  class="font-weight-light"
+                  >- шахматная школа<br />"Шах и Мат"</span
+                >
               </h1>
             </div>
             <div class="mt-5 mt-md-0 col-12 col-lg-5 d-flex align-items-center">
@@ -193,7 +197,7 @@
     <nav class="menu nav active d-none d-sm-flex" role="navigation">
       <ul class="nav__list" id="sideNav">
         <div class="nav__list-left container">
-          <a class="closeBtn d-md-none">
+          <a class="closeBtn d-md-none" v-on:click="closeMobileMenu">
             <svg
               class="svg-close"
               viewBox="0 0 1188 1188"
@@ -257,7 +261,7 @@
           >
             <div class="d-flex">
               <div class="footer__contacts text-right">
-                <h2 class="footer__tel">8 967 866 51 23</h2>
+                <h2 class="footer__tel">+7 967 866 51 23</h2>
                 <a href="#sendemail" class="footer__email">
                   shnaider.violetta98@gmail.com
                 </a>
@@ -434,7 +438,7 @@ export default {
           this.error = "Вы не оставили нам свои контакты";
         }
         if (this.contact_name.trim() === "") {
-          this.error = "Вы не указали как вас назвать";
+          this.error = "Укажите, как можно к вам обратиться";
         }
 
         document.querySelector(".text-after-plane").style.display = "flex";
@@ -487,6 +491,12 @@ export default {
         });
 
       this.plane();
+    },
+    openMobileMenu() {
+      document.querySelector(".menu").classList.remove("d-none");
+    },
+    closeMobileMenu() {
+      document.querySelector(".menu").classList.add("d-none");
     }
   },
   components: {
@@ -584,6 +594,34 @@ header > .parallax__content {
   .container {
     padding-left: 2em !important;
     padding-right: 2em !important;
+  }
+}
+
+.school-name {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    &:after {
+      right: 50%;
+      left: 50%;
+    }
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -0px;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background-color: #fff;
+    transition: all 300ms;
   }
 }
 
@@ -746,15 +784,19 @@ header > .parallax__content {
 
 .profile-info {
   position: relative;
+  & > span {
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+  }
   & > .profile-info__menu {
     background: $beige-color;
     position: absolute;
-    top: 22px;
+    top: 28px;
     right: 0px;
-    display: none;
+    /*display: none;*/
     list-style-type: none;
     margin: 0px;
-    padding: 0px 0px 5px 0px;
+    padding: 5px 0px 10px 0px;
     border-radius: 5px;
     color: dodgerblue;
     z-index: +1;
@@ -763,9 +805,9 @@ header > .parallax__content {
       color: #fff;
       background-color: $violet;
       cursor: pointer;
-      margin: 5px 0px 0px 0px;
+      margin: 5px 10px 0px 10px;
       padding: 6px 40px;
-      border-radius: 0px;
+      border-radius: 50px;
       &:hover {
         background-color: transparentize($violet, 0.3);
       }
@@ -773,11 +815,6 @@ header > .parallax__content {
     a {
       color: #fff;
       text-decoration: none;
-    }
-  }
-  &:hover {
-    .profile-info__menu {
-      display: block;
     }
   }
 }
@@ -792,14 +829,6 @@ header > .parallax__content {
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
-  & > .substrate {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: -1;
-  }
   .card-text {
     & > input {
       border-radius: 50px;
@@ -809,6 +838,15 @@ header > .parallax__content {
       padding: 7px 20px;
     }
   }
+}
+
+.substrate {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
 }
 
 .menu {
@@ -868,8 +906,30 @@ header > .parallax__content {
   }
 }
 
+@media screen and (max-width: 575px) {
+  .menu {
+    position: fixed;
+    z-index: 29;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: auto;
+    & .nav__list-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      & > li {
+        margin: 10px 0;
+      }
+    }
+  }
+}
+
 .toggleNav {
-  position: absolute;
+  position: fixed;
+  z-index: 30;
   & > svg {
     fill: $cream-color;
     width: 30px;
@@ -884,12 +944,13 @@ header > .parallax__content {
 
 .closeBtn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
   & > svg {
-    width: 30px;
-    height: 30px;
-    fill: $brown-color;
+    width: 20px;
+    height: 20px;
+    fill: $violet;
   }
 }
 
